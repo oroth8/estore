@@ -1,27 +1,36 @@
 import express from "express";
-import products from "./data/products.js";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import colors from "colors";
+import productRoutes from "./routes/productRoutes.js";
+import { notFound, errorHandler } from "./middleware/errorMW.js";
 
+// grab ENV vars
 dotenv.config();
-
+// connect to db
 connectDB();
 
+// init server
 const App = express();
+
+// If in development mode, use morgan
+// if (process.env.NODE_ENV === "development") {
+//   App.use(morgan("dev"));
+// }
+
+App.use(express.json());
 
 App.get("/", (req, res) => {
   res.send("Api is running...");
 });
 
-App.get("/products", (req, res) => {
-  res.send(products);
-});
+// product routes
+App.use("/products", productRoutes);
 
-App.get("/products/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
-  res.json(product);
-});
+// error middlware
+App.use(notFound);
+
+App.use(errorHandler);
 
 const PORT = process.env.PORT || 8080;
 
