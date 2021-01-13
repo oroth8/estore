@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import colors from "colors";
 import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMW.js";
 
 // grab ENV vars
@@ -18,14 +19,16 @@ const App = express();
 //   App.use(morgan("dev"));
 // }
 
+// allows us to accept json data in body
 App.use(express.json());
 
 App.get("/", (req, res) => {
   res.send("Api is running...");
 });
 
-// product routes
+// routes
 App.use("/products", productRoutes);
+App.use("/user", userRoutes);
 
 // error middlware
 App.use(notFound);
