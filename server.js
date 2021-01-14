@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import colors from "colors";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMW.js";
 
 // grab ENV vars
@@ -29,6 +30,10 @@ App.get("/", (req, res) => {
 // routes
 App.use("/products", productRoutes);
 App.use("/user", userRoutes);
+App.use("/orders", orderRoutes);
+
+// paypal
+App.get("/config/paypal", (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
 
 // error middlware
 App.use(notFound);
