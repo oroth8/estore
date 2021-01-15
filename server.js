@@ -30,6 +30,7 @@ App.use(express.json());
 // App.get("/", (req, res) => {
 //   res.send("Api is running...");
 // });
+// test
 
 // routes
 App.use("/products", productRoutes);
