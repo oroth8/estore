@@ -46,6 +46,13 @@ function App() {
             <Route path="/product/:id" component={Product} />
             <Route path="/cart/:id?" component={Cart} />
             <Route path="/order/:id" component={Order} />
+            <Route path="/search/:keyword" component={Home} exact />
+            <Route path="/page/:pageNumber" component={Home} exact />
+            <Route
+              path="/search/:keyword/page/:pageNumber"
+              component={Home}
+              exact
+            />
           </Container>
         </main>
         <Footer />

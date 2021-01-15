@@ -26,9 +26,10 @@ if (process.env.NODE_ENV === "development") {
 // allows us to accept json data in body
 App.use(express.json());
 
-App.get("/", (req, res) => {
-  res.send("Api is running...");
-});
+// for devopment
+// App.get("/", (req, res) => {
+//   res.send("Api is running...");
+// });
 
 // routes
 App.use("/products", productRoutes);
@@ -42,6 +43,19 @@ App.get("/config/paypal", (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
 // upload static folder
 const __dirname = path.resolve();
 App.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+// For production
+if (process.env.NODE_ENV === "production") {
+  App.use(express.static(path.join(__dirname, "/client/build")));
+
+  App.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  );
+} else {
+  App.get("/", (req, res) => {
+    res.send("API is running....");
+  });
+}
 
 // error middlware
 App.use(notFound);

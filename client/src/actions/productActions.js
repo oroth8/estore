@@ -24,11 +24,15 @@ import {
 } from "../constants/productConstants";
 import { logout } from "./userActions";
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (keyword = "", pageNumber = "") => async (
+  dispatch
+) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQ });
 
-    const { data } = await axios.get("/products");
+    const { data } = await axios.get(
+      `/products?keyword=${keyword}&pageNumber=${pageNumber}`
+    );
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
@@ -37,7 +41,6 @@ export const listProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
-      //   Check backend for errors
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
