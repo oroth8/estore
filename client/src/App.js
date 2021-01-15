@@ -13,6 +13,11 @@ import Shipping from "./screens/Shipping";
 import PaymentMethod from "./screens/PaymentMethod";
 import PlaceOrder from "./screens/PlaceOrder";
 import Order from "./screens/Order";
+import UserList from "./screens/UserList";
+import UserEdit from "./screens/UserEdit";
+import ProductList from "./screens/ProductList";
+import ProductEdit from "./screens/ProductEdit";
+import OrderList from "./screens/OrderList";
 
 function App() {
   return (
@@ -26,6 +31,16 @@ function App() {
             <Route path="/payment" component={PaymentMethod} />
             <Route path="/placeorder" component={PlaceOrder} />
             <Route path="/register" component={Register} />
+            <Route path="/admin/userlist" component={UserList} />
+            <Route path="/admin/user/:id/edit" component={UserEdit} />
+            <Route path="/admin/productlist" component={ProductList} exact />
+            <Route
+              path="/admin/productlist/:pageNumber"
+              component={ProductList}
+              exact
+            />
+            <Route path="/admin/product/:id/edit" component={ProductEdit} />
+            <Route path="/admin/orderlist" component={OrderList} />
             <Route path="/profile" component={Profile} />
             <Route exact path="/" component={Home} />
             <Route path="/product/:id" component={Product} />
